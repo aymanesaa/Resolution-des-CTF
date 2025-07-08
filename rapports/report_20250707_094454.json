@@ -1,0 +1,26 @@
+{
+    "timestamp": "2025-07-07T09:44:54.790975",
+    "results": {
+        "samples/firmware.bin": {
+            "strings": "",
+            "binwalk": "\nDECIMAL       HEXADECIMAL     DESCRIPTION\n--------------------------------------------------------------------------------\n\n",
+            "base64": "",
+            "hex": "",
+            "rot13": ""
+        },
+        "samples/message.txt": {
+            "strings": "Ceci\n\nest\n\nmessage\n\npour\n\nCTF.\n",
+            "binwalk": "\nDECIMAL       HEXADECIMAL     DESCRIPTION\n--------------------------------------------------------------------------------\n\n",
+            "base64": "",
+            "hex": "",
+            "rot13": ""
+        },
+        "samples/secret.b64": {
+            "strings": "U2FsdCBjZXNpIGVzdCB1biBzZWNyZXQ=\n",
+            "binwalk": "\nDECIMAL       HEXADECIMAL     DESCRIPTION\n--------------------------------------------------------------------------------\n\n",
+            "base64": "",
+            "hex": "",
+            "rot13": ""
+        }
+    }
+}

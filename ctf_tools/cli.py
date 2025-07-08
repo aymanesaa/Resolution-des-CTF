@@ -5,6 +5,7 @@ from .report import save_report
 from .decoders import decode_base64, decode_hex, decode_rot13
 from .static_analysis import extract_strings, run_binwalk
 import datetime
+import string
 
 def main():
     parser = argparse.ArgumentParser(description="CTF Automation Tool")
@@ -23,7 +24,7 @@ def main():
                 # Lecture intelligente du fichier
                 with open(args.file, 'r', encoding='utf-8', errors='ignore') as f:
                     data = f.read().strip()
-                    
+                    print(f"avant dec: {data}")
                 if args.decode == 'base64':
                     result = decode_base64(data)
                     print(f"Décodage Base64 : {result}")
@@ -51,15 +52,17 @@ def main():
         print(f"Traitement du dossier : {args.dir}")
         results = process_directory(args.dir)
         
-        # Affichage concis des résultats
+        # Affichage concis et filtré des résultats
+        def is_printable(s):
+            return all(c in string.printable for c in s)
         for filepath, res in results.items():
             print(f'\nFichier : {filepath}')
-            # Affiche strings seulement si très court
-            if 'strings' in res and res['strings'] and len(res['strings']) <= 60:
+            # Affiche strings seulement si très court et imprimable
+            if 'strings' in res and res['strings'] and len(res['strings']) <= 60 and is_printable(res['strings']):
                 print(f'  strings: {res["strings"]}')
-            # Affiche les décodages non vides
+            # Affiche les décodages non vides, courts et imprimables
             for key in ['base64', 'hex', 'rot13']:
-                if key in res and res[key]:
+                if key in res and res[key] and len(res[key]) <= 60 and is_printable(res[key]):
                     print(f'  {key}: {res[key]}')
             # Affiche le flag_detected s'il existe
             if 'flag_detected' in res and res['flag_detected']:

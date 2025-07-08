@@ -5,7 +5,7 @@ import re
 
 def process_directory(directory):
     results = {}
-    flag_regex = re.compile(r'(CTF\{.*?\}|FLAG\{.*?\})', re.IGNORECASE)
+    flag_regex = re.compile(r'([A-Za-z_]+\{.*?\})', re.IGNORECASE)
     for root, dirs, files in os.walk(directory):
         for file in files:
             filepath = os.path.join(root, file)

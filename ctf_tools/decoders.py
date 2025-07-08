@@ -3,11 +3,13 @@ import codecs
 import re
 
 def decode_base64(data):
-    # Nettoie le texte (enlève espaces et retours à la ligne)
-    cleaned = ''.join(data.strip().split())
-    # Vérifie si le texte ressemble à du base64 (plus souple)
-    if not re.fullmatch(r'[A-Za-z0-9+/=]+', cleaned):
+    # Nettoie le texte - garde seulement les caractères base64 valides
+    cleaned = re.sub(r'[^A-Za-z0-9+/=]', '', data.strip())
+    
+    # Vérifie la longueur (base64 doit être multiple de 4 avec padding)
+    if len(cleaned) == 0 or len(cleaned) % 4 != 0:
         return ''
+    
     try:
         return base64.b64decode(cleaned).decode('utf-8', errors='ignore')
     except Exception:
