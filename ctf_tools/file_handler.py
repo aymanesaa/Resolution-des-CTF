@@ -1,6 +1,7 @@
 import os
 from .static_analysis import extract_strings, run_binwalk
 from .decoders import decode_base64, decode_hex, decode_rot13
+from .exif_tools import extract_exif
 import re
 
 def process_directory(directory):
@@ -15,7 +16,17 @@ def process_directory(directory):
             strings_result = extract_strings(filepath)
             file_result['strings'] = strings_result
             file_result['binwalk'] = run_binwalk(filepath)
-            
+            # Extraction EXIF si image
+            if file.lower().endswith(('.jpg', '.jpeg', '.png')):
+                exif = extract_exif(filepath)
+                file_result['exif'] = exif
+                # Détection de flag dans les champs EXIF
+                if isinstance(exif, dict):
+                    for val in exif.values():
+                        match = flag_regex.search(str(val))
+                        if match:
+                            file_result['flag_detected'] = {'flag': match.group(0), 'method': 'exif'}
+                            break
             # Décodages (lecture du contenu brut)
             try:
                 with open(filepath, 'rb') as f:
