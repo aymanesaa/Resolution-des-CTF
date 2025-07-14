@@ -1,0 +1,138 @@
+{
+    "timestamp": "2025-07-10T10:42:56.640891",
+    "results": {
+        "samples/firmware.bin": {
+            "strings": "",
+            "binwalk": "\nDECIMAL       HEXADECIMAL     DESCRIPTION\n--------------------------------------------------------------------------------\n\n",
+            "base64": "",
+            "hex": "",
+            "rot13_excerpt": "\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000..."
+        },
+        "samples/image_with_flag.jpg": {
+            "binwalk": "\nDECIMAL       HEXADECIMAL     DESCRIPTION\n--------------------------------------------------------------------------------\n0             0x0             JPEG image data, JFIF standard 1.01\n30            0x1E            TIFF image data, big-endian, offset of first image directory: 8\n\n",
+            "exif": {
+                "ExifOffset": "171",
+                "Make": "Python Generator",
+                "Model": "CTF Challenge",
+                "Software": "PIL",
+                "Copyright": "CTF{3x1f_st3g4n0gr4phy}",
+                "Artist": "flag{h1dd3n_1n_3x1f_m3t4d4t4}",
+                "UserComment": "b'FLAG: ctf{m3t4d4t4_1s_p0w3rful}'"
+            },
+            "base64": "",
+            "hex": "",
+            "flags_detected": [
+                {
+                    "flag": "CTF{3x1f_st3g4n0gr4phy}",
+                    "method": "exif"
+                },
+                {
+                    "flag": "flag{h1dd3n_1n_3x1f_m3t4d4t4}",
+                    "method": "exif"
+                },
+                {
+                    "flag": "ctf{m3t4d4t4_1s_p0w3rful}",
+                    "method": "exif"
+                },
+                {
+                    "flag": "Challengeflag{h1dd3n_1n_3x1f_m3t4d4t4}",
+                    "method": "strings"
+                },
+                {
+                    "flag": "CTF{3x1f_st3g4n0gr4phy}",
+                    "method": "strings"
+                },
+                {
+                    "flag": "ctf{m3t4d4t4_1s_p0w3rful}",
+                    "method": "strings"
+                },
+                {
+                    "flag": "synt{u1qq3a_1a_3k1s_z3g4q4g4}",
+                    "method": "rot13"
+                },
+                {
+                    "flag": "PGS{3k1s_fg3t4a0te4cul}",
+                    "method": "rot13"
+                },
+                {
+                    "flag": "pgs{z3g4q4g4_1f_c0j3eshy}",
+                    "method": "rot13"
+                },
+                {
+                    "flag": "Punyyratrsynt{u1qq3a_1a_3k1s_z3g4q4g4}",
+                    "method": "rot13"
+                },
+                {
+                    "flag": "PGS{3k1s_fg3t4a0te4cul}",
+                    "method": "rot13"
+                },
+                {
+                    "flag": "pgs{z3g4q4g4_1f_c0j3eshy}",
+                    "method": "rot13"
+                }
+            ],
+            "strings_excerpt": "JFIF\nExifMM*\nPython GeneratorCTF Challengeflag{h1d...",
+            "rot13_excerpt": "\u0000\u0010WSVS\u0000\u0001\u0001\u0000\u0000\u0001\u0000\u0001\u0000\u0000\u0000Rkvs\u0000\u0000ZZ\u0000*\u0000\u0000\u0000\b\u0000\u0006\u0001\u000f\u0000\u0002\u0000\u0000\u0000\u0011\u0000\u0000\u0000I\u0001\u0010\u0000\u0002\u0000..."
+        },
+        "samples/message.txt": {
+            "strings": "Ceci\n\nest\n\nmessage\n\npour\n\nCTF.\n",
+            "binwalk": "\nDECIMAL       HEXADECIMAL     DESCRIPTION\n--------------------------------------------------------------------------------\n\n",
+            "base64": "",
+            "hex": "",
+            "rot13_excerpt": "P\u0000r\u0000p\u0000v\u0000\r\u0000\n\u0000r\u0000f\u0000g\u0000\r\u0000\n\u0000h\u0000a\u0000\r\u0000\n\u0000z\u0000r\u0000f\u0000f\u0000n\u0000t\u0000r\u0000\r\u0000\n\u0000c\u0000..."
+        },
+        "samples/secret.b64": {
+            "strings": "Q1RGe2hlbGxvX3dvcmxkfQ==\n",
+            "binwalk": "\nDECIMAL       HEXADECIMAL     DESCRIPTION\n--------------------------------------------------------------------------------\n\n",
+            "base64": "CTF{hello_world}",
+            "hex": "",
+            "rot13": "D\u00001\u0000E\u0000T\u0000r\u00002\u0000u\u0000y\u0000o\u0000T\u0000k\u0000i\u0000K\u00003\u0000q\u0000i\u0000p\u0000z\u0000k\u0000x\u0000s\u0000D\u0000=\u0000=\u0000",
+            "flags_detected": [
+                {
+                    "flag": "CTF{hello_world}",
+                    "method": "base64"
+                },
+                {
+                    "flag": "CTF{hello_world}",
+                    "method": "base64"
+                }
+            ]
+        },
+        "samples/test_hidden.jpg": {
+            "binwalk": "\nDECIMAL       HEXADECIMAL     DESCRIPTION\n--------------------------------------------------------------------------------\n0             0x0             JPEG image data, EXIF standard\n12            0xC             TIFF image data, little-endian offset of first image directory: 8\n5497          0x1579          Zip archive data, at least v2.0 to extract, compressed size: 19, uncompressed size: 19, name: flag.txt\n5608          0x15E8          End of Zip archive, footer length: 22\n\n",
+            "exif": {
+                "ResolutionUnit": "2",
+                "ExifOffset": "102",
+                "Orientation": "1",
+                "YCbCrPositioning": "1",
+                "XResolution": "72.0",
+                "YResolution": "72.0",
+                "ExifVersion": "b'0210'",
+                "ComponentsConfiguration": "b'\\x01\\x02\\x03\\x00'",
+                "FlashPixVersion": "b'0100'",
+                "ColorSpace": "65535",
+                "ExifImageWidth": "200",
+                "ExifImageHeight": "300",
+                "UserComment": "b'ASCII\\x00\\x00\\x00Picsum ID: 499'"
+            },
+            "base64": "\u0013\u0018 b|q]4M\u0000H\"\b>',b\u0003BMx",
+            "hex": "",
+            "flags_detected": [
+                {
+                    "flag": "txtflag{hidden_in_zip}",
+                    "method": "strings"
+                },
+                {
+                    "flag": "gkgsynt{uvqqra_va_mvc}",
+                    "method": "rot13"
+                },
+                {
+                    "flag": "gkgsynt{uvqqra_va_mvc}",
+                    "method": "rot13"
+                }
+            ],
+            "strings_excerpt": "ExifII*\n0210\n0100\nASCIIPicsum ID: 499\n $.' \",#\n(7)...",
+            "rot13_excerpt": "\u0000Rkvs\u0000\u0000VV*\u0000\b\u0000\u0000\u0000\u0006\u0000\u0012\u0001\u0003\u0000\u0001\u0000\u0000\u0000\u0001\u0000\u0000\u0000\u001a\u0001\u0005\u0000\u0001\u0000\u0000\u0000I\u0000\u0000\u0000\u001b\u0001\u0005\u0000\u0001\u0000\u0000\u0000^..."
+        }
+    }
+}

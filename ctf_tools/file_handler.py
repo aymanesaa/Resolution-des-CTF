@@ -2,6 +2,7 @@ import os
 from .static_analysis import extract_strings, run_binwalk
 from .decoders import decode_base64, decode_hex, decode_rot13
 from .exif_tools import extract_exif
+from .pdf_tools import extract_pdf_content
 import re
 
 def process_directory(directory):
@@ -11,8 +12,27 @@ def process_directory(directory):
         for file in files:
             filepath = os.path.join(root, file)
             file_result = {}
-            
-            # Analyse statique
+            flags_detected = []
+            # Analyse PDF
+            if file.lower().endswith('.pdf'):
+                pdf_content = extract_pdf_content(filepath)
+                file_result['pdf_text'] = pdf_content.get('text', '')
+                file_result['pdf_images'] = pdf_content.get('images', [])
+                # Détection de flag dans le texte PDF
+                for match in flag_regex.finditer(file_result['pdf_text']):
+                    flags_detected.append({'flag': match.group(0), 'method': 'pdf_text'})
+                # Analyse EXIF sur chaque image extraite
+                for img_path in file_result['pdf_images']:
+                    exif = extract_exif(img_path)
+                    if exif:
+                        if 'pdf_images_exif' not in file_result:
+                            file_result['pdf_images_exif'] = {}
+                        file_result['pdf_images_exif'][img_path] = exif
+                        if isinstance(exif, dict):
+                            for val in exif.values():
+                                for match in flag_regex.finditer(str(val)):
+                                    flags_detected.append({'flag': match.group(0), 'method': 'pdf_image_exif'})
+            # Analyse statique classique
             strings_result = extract_strings(filepath)
             file_result['strings'] = strings_result
             file_result['binwalk'] = run_binwalk(filepath)
@@ -20,13 +40,10 @@ def process_directory(directory):
             if file.lower().endswith(('.jpg', '.jpeg', '.png')):
                 exif = extract_exif(filepath)
                 file_result['exif'] = exif
-                # Détection de flag dans les champs EXIF
                 if isinstance(exif, dict):
                     for val in exif.values():
-                        match = flag_regex.search(str(val))
-                        if match:
-                            file_result['flag_detected'] = {'flag': match.group(0), 'method': 'exif'}
-                            break
+                        for match in flag_regex.finditer(str(val)):
+                            flags_detected.append({'flag': match.group(0), 'method': 'exif'})
             # Décodages (lecture du contenu brut)
             try:
                 with open(filepath, 'rb') as f:
@@ -35,35 +52,35 @@ def process_directory(directory):
                         text = raw.decode('utf-8', errors='ignore')
                     except:
                         text = ''
-                    # Décodages sur le texte brut
                     b64 = decode_base64(text)
                     hx = decode_hex(text)
                     rot = decode_rot13(text)
                     file_result['base64'] = b64
                     file_result['hex'] = hx
                     file_result['rot13'] = rot
-                    # Détection de flag dans tous les résultats
                     for label, val in [('strings', strings_result), ('base64', b64), ('hex', hx), ('rot13', rot)]:
                         if val:
-                            match = flag_regex.search(val)
-                            if match:
-                                file_result['flag_detected'] = {'flag': match.group(0), 'method': label}
-                                break
-                    # Décodages sur chaque chaîne extraite par strings
+                            for match in flag_regex.finditer(val):
+                                flags_detected.append({'flag': match.group(0), 'method': label})
                     for line in strings_result.splitlines():
                         line = line.strip()
                         if not line:
                             continue
                         for label, val in [('base64', decode_base64(line)), ('hex', decode_hex(line)), ('rot13', decode_rot13(line))]:
                             if val:
-                                match = flag_regex.search(val)
-                                if match:
-                                    file_result['flag_detected'] = {'flag': match.group(0), 'method': label}
-                                    break
-                        if 'flag_detected' in file_result:
-                            break
+                                for match in flag_regex.finditer(val):
+                                    flags_detected.append({'flag': match.group(0), 'method': label})
             except Exception as e:
                 file_result['decode_error'] = str(e)
-            
+            if flags_detected:
+                file_result['flags_detected'] = flags_detected
+            # Tronquer strings et rot13 à 50 caractères pour le rapport
+            max_len = 50
+            if 'strings' in file_result and isinstance(file_result['strings'], str) and len(file_result['strings']) > max_len:
+                file_result['strings_excerpt'] = file_result['strings'][:max_len] + '...'
+                del file_result['strings']
+            if 'rot13' in file_result and isinstance(file_result['rot13'], str) and len(file_result['rot13']) > max_len:
+                file_result['rot13_excerpt'] = file_result['rot13'][:max_len] + '...'
+                del file_result['rot13']
             results[filepath] = file_result
     return results

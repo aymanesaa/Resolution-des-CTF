@@ -1,0 +1,89 @@
+{
+    "timestamp": "2025-07-10T10:42:19.394596",
+    "results": {
+        "pdf/testPdf.pdf": {
+            "pdf_text": " \n\n",
+            "pdf_images": [
+                "extracted_images/testPdf.pdf_page1_Image9.jpg"
+            ],
+            "pdf_images_exif": {
+                "extracted_images/testPdf.pdf_page1_Image9.jpg": {
+                    "ExifOffset": "172",
+                    "Make": "Python Generator",
+                    "Model": "CTF Challenge",
+                    "Software": "PIL",
+                    "Copyright": "CTF{3x1f_st3g4n0gr4phy}",
+                    "Artist": "flag{h1dd3n_1n_3x1f_m3t4d4t4}",
+                    "UserComment": "b'FLAG: ctf{m3t4d4t4_1s_p0w3rful}'"
+                }
+            },
+            "binwalk": "\nDECIMAL       HEXADECIMAL     DESCRIPTION\n--------------------------------------------------------------------------------\n0             0x0             PDF document, version: \"1.5\"\n88            0x58            Zlib compressed data, default compression\n139109        0x21F65         JPEG image data, JFIF standard 1.01\n139139        0x21F83         TIFF image data, big-endian, offset of first image directory: 8\n142508        0x22CAC         Zlib compressed data, default compression\n\n",
+            "base64": "",
+            "hex": "",
+            "flags_detected": [
+                {
+                    "flag": "CTF{3x1f_st3g4n0gr4phy}",
+                    "method": "pdf_image_exif"
+                },
+                {
+                    "flag": "flag{h1dd3n_1n_3x1f_m3t4d4t4}",
+                    "method": "pdf_image_exif"
+                },
+                {
+                    "flag": "ctf{m3t4d4t4_1s_p0w3rful}",
+                    "method": "pdf_image_exif"
+                },
+                {
+                    "flag": "Challengeflag{h1dd3n_1n_3x1f_m3t4d4t4}",
+                    "method": "strings"
+                },
+                {
+                    "flag": "CTF{3x1f_st3g4n0gr4phy}",
+                    "method": "strings"
+                },
+                {
+                    "flag": "ctf{m3t4d4t4_1s_p0w3rful}",
+                    "method": "strings"
+                },
+                {
+                    "flag": "Ftn{m}",
+                    "method": "rot13"
+                },
+                {
+                    "flag": "j{}",
+                    "method": "rot13"
+                },
+                {
+                    "flag": "i{}",
+                    "method": "rot13"
+                },
+                {
+                    "flag": "synt{u1qq3a_1a_3k1s_z3g4q4g4}",
+                    "method": "rot13"
+                },
+                {
+                    "flag": "PGS{3k1s_fg3t4a0te4cul}",
+                    "method": "rot13"
+                },
+                {
+                    "flag": "pgs{z3g4q4g4_1f_c0j3eshy}",
+                    "method": "rot13"
+                },
+                {
+                    "flag": "Punyyratrsynt{u1qq3a_1a_3k1s_z3g4q4g4}",
+                    "method": "rot13"
+                },
+                {
+                    "flag": "PGS{3k1s_fg3t4a0te4cul}",
+                    "method": "rot13"
+                },
+                {
+                    "flag": "pgs{z3g4q4g4_1f_c0j3eshy}",
+                    "method": "rot13"
+                }
+            ],
+            "strings_excerpt": "%PDF-1.5\n%\n\n8 0 obj\n<<\n/Filter /FlateDecode\n/Lengt...",
+            "rot13_excerpt": "%CQS-1.5\n%\n8 0 bow\n<<\n/Svygre /SyngrQrpbqr\n/Yratgu..."
+        }
+    }
+}
