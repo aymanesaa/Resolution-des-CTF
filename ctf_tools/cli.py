@@ -19,6 +19,16 @@ def main():
     results = {}
     
     if args.file:
+        from .file_handler import process_file
+        results = process_file(args.file)
+        res = results.get(args.file)
+        if res:
+            print(f"\nFichier : {args.file}")
+            for key, value in res.items():
+                print(f"  {key}: {value}")
+        else:
+            print("Aucun résultat pour ce fichier.")
+                
         if args.decode:
             try:
                 # Lecture intelligente du fichier
